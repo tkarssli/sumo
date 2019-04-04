@@ -1,15 +1,24 @@
 const express = require("express");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
+const passport = require('passport');
 
+const keys = require('../../config/keys');
 const User = require('../../models/User');
 
 const router = express.Router();
 
+router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.json({
+    id: req.user.id,
+    handle: req.user.handle,
+    email: req.user.email
+  });
+})
 
 router.post('/register', (req, res) => {
   // Check if email already exists
+  console.log(req.body)
   User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
@@ -24,7 +33,7 @@ router.post('/register', (req, res) => {
           email: req.body.email,
           password: req.body.password
         })
-        console.log(req)
+
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;
