@@ -1,0 +1,131 @@
+/* Navbar */
+
+#navbar {
+  @include vendor('display', 'flex');
+  @include vendor('flex-direction', 'row');
+  @include vendor('justify-content', 'space-between');
+  @include vendor('transform', 'translateY(0)');
+  @include vendor('transition', (
+    'opacity #{_duration(activation)} ease',
+  ));
+  // @include padding(2.5em, 2.5em);
+  background-color: _palette(accent1);
+  // background: _palette(bg);
+  cursor: default;
+  width: 100%;
+  position: fixed;
+  height: _size(sidebar-height);
+  left: 0;
+  line-height: _size(sidebar-height);
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  top: 0;
+  z-index: _misc(z-index-base);
+  opacity: 1;
+  width: 100%;
+
+  > .title {
+    border: 0;
+    color: _palette(fg-bold);
+    display: block;
+    font-size: 1.25em;
+    font-weight: _font(weight-bold);
+  }
+
+  > ul {
+    @include vendor('display', 'flex');
+    
+    list-style: none;
+    padding: 0;
+    height: inherit;
+    line-height: inherit;
+    margin: 0;
+
+    > li {
+      @include vendor('transform', 'translateY(0)');
+      @include vendor('transition', (
+        'opacity #{_duration(activation) * 0.15} ease',
+        'transform #{_duration(activation) * 0.75} ease'
+      ));
+      opacity: 1;
+      padding: 0;
+      position: relative;
+
+      &:first-child {
+        margin: 0;
+      }
+
+      @for $i from 1 through _misc(max-sidebar-links) {
+        &:nth-child(#{$i}) {
+          @include vendor('transition-delay', '#{(_duration(activation) * 0.2 * $i) + (_duration(activation) * 0.25)}');
+        }
+      }
+    }
+  }
+
+  
+
+  body.is-preload & {
+    opacity: 0;
+      ul {
+        li {
+          @include vendor('transform', 'translateY(2em)');
+          opacity: 0;
+        }
+      }
+  }
+
+  // @include breakpoint('>small') {
+  //   height: _size(sidebar-height);
+  //   left: 0;
+  //   line-height: _size(sidebar-height);
+  //   overflow: hidden;
+  //   padding: 0;
+  //   text-align: center;
+  //   top: 0;
+  //   width: 100%;
+
+  //   > .inner {
+  //     @include vendor('flex-direction', 'row');
+  //     @include vendor('align-items', 'stretch');
+  //     height: inherit;
+  //     line-height: inherit;
+  //   }
+
+  //   nav {
+  //     height: inherit;
+  //     line-height: inherit;
+
+  //     ul {
+  //       @include vendor('display', 'flex');
+  //       height: inherit;
+  //       line-height: inherit;
+  //       margin: 0;
+
+  //       li {
+  //         display: block;
+  //         height: inherit;
+  //         line-height: inherit;
+  //         margin: 0 0 0 2em;
+  //         padding: 0;
+  //       }
+  //     }
+
+  //     a {
+  //       height: inherit;
+  //       line-height: inherit;
+  //       padding: 0;
+
+  //       &:after {
+  //         background-image: none;
+  //         background-color: _palette(accent4);
+  //       }
+  //     }
+  //   }
+  // }
+
+  @include breakpoint('<=small') {
+    display: none;
+  }
+}
