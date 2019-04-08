@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   ReactDOM.render(<Root store={store} />, root);
+  window.setTimeout(function() {
+  document.body.classList.remove('is-preload');
+  }, 100);
+
+// TESTING
+window.dispatch = store.dispatch
+
 });
 
 serviceWorker.unregister();

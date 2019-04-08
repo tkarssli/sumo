@@ -17,29 +17,26 @@ class NavBar extends React.Component {
   getLinks() {
       if (this.props.loggedIn) {
         return (
-            <div>
-                <Link to={'/tweets'}>All Tweets</Link>
-                <Link to={'/profile'}>Profile</Link>
-                <Link to={'/new_tweet'}>Write a Tweet</Link>
-                <button onClick={this.logoutUser}>Logout</button>
-            </div>
+            <ul>
+              <li><button className="button" onClick={this.logoutUser}>Logout</button></li>
+            </ul>
         );
       } else {
         return (
-            <div>
-                <Link to={'/signup'}>Signup</Link>
-                <Link to={'/login'}>Login</Link>
-            </div>
+            <ul>
+              <li><Link class="button" to={'/signup'}>Signup</Link></li>
+              <li><Link class="button" to={'/login'}>Login</Link></li>
+            </ul>
         );
       }
   }
 
   render() {
       return (
-        <div>
-            <h1>Chirper</h1>
+        <nav id="navbar" >
+            <h1 className="title" >Sumo</h1>
             { this.getLinks() }
-        </div>
+        </nav>
       );
   }
 }
