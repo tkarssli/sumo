@@ -30,7 +30,7 @@ const WrestlerSchema = new Schema({
     type: Number
   },
   image: {
-    data: Buffer, 
+    data: String, 
     contentType: String
   }
 })
