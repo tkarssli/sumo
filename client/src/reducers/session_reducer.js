@@ -18,12 +18,6 @@ export default function(state = initialState, action) {
         user: undefined
       };
 
-    case RECEIVE_USER_SIGN_IN:
-      return {
-        ...state,
-        isSignedIn: true
-      }
-
     case RECEIVE_CURRENT_USER:
       return {
         ...state,

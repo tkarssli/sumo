@@ -1,7 +1,7 @@
 import { 
-  RECEIVE_SESSION_ERRORS, RECEIVE_CURRENT_USER 
+  RECEIVE_SESSION_ERRORS, 
+  RECEIVE_CURRENT_USER 
 } from '../actions/session_actions'
-import { Session } from 'inspector';
 
 const _nullErrors = [];
 
