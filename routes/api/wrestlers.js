@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require('passport');
 const cheerio = require("cheerio");
-const axios = require("axios")
+const axios = require("axios");
 
 const router = express.Router();
 
@@ -24,31 +24,33 @@ router.get('/:id', (req, res) => {
           const image = $('#mainContent > div:nth-child(3) img')
           
           //Get image data
-          axios.get(`http://www.sumo.or.jp${image.attr('src')}`)
-            .then( response => {
-              const buffer = Buffer.alloc(response.data.length, response.data, 'binary').toString('base64')
-              const wrestler = new Wrestler({
-                webId: req.params.id,
-                name: $(rows[2]).children('td').text().trim(),
-                stable: $(rows[1]).children('td').text().trim(),
-                ringName: $(rows[3]).children('td').text().trim(),
-                rank: $(rows[4]).children('td').text().trim(),
-                dob: new Date($(rows[5]).children('td').text().trim()),
-                pob: $(rows[6]).children('td').text().trim(),
-                height: parseFloat($(rows[7]).children('td').text().trim()),
-                weight: parseFloat($(rows[8]).children('td').text().trim()),
-                image: {
-                  data: buffer,
-                  contentType: 'image/jpg'
-                }
-            
-              })
-              wrestler.save()
-                .then(wrestler => {
-                  res.json(wrestler)
-                })
-                .catch(err => console.log(err))
+          axios.get(`http://www.sumo.or.jp${image.attr('src')}`, {
+            responseType: 'arraybuffer',
+            responseEncoding: 'binary'
+          })
+          .then( response => {
+            data = "data:" + response.headers["content-type"] + ";base64," + Buffer.from(response.data, 'binary').toString('base64');
+            const wrestler = new Wrestler({
+              webId: req.params.id,
+              name: $(rows[2]).children('td').text().trim(),
+              stable: $(rows[1]).children('td').text().trim(),
+              ringName: $(rows[3]).children('td').text().trim(),
+              rank: $(rows[4]).children('td').text().trim(),
+              dob: new Date($(rows[5]).children('td').text().trim()),
+              pob: $(rows[6]).children('td').text().trim(),
+              height: parseFloat($(rows[7]).children('td').text().trim()),
+              weight: parseFloat($(rows[8]).children('td').text().trim()),
+              image: {
+                data: data,
+                contentType: response.headers["content-type"]
+              }
             })
+            wrestler.save()
+              .then(wrestler => {
+                res.json(wrestler)
+              })
+              .catch(err => console.log(err))
+          })
         })
         .catch(err => console.log(err));
       }
