@@ -9,7 +9,7 @@ export default function(state = initialState, action) {
   switch (action.type) {
 
     case RECEIVE_WRESTLER:
-      const id = action.wrestler._id
+      const id = action.wrestler.webId
       return Object.assign({}, state, {[id]: action.wrestler})
     
     default:
