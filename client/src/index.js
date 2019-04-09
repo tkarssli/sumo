@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 100);
 
 // TESTING
-window.dispatch = store.dispatch
+window.store = store;
+window.dispatch = store.dispatch;
 
 });
 
