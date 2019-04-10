@@ -3,10 +3,12 @@ const Schema = mongoose.Schema;
 
 const WrestlerSchema = new Schema({
   webId: {
-    type: Number
+    type: Number,
+    required: true
   },
   name: {
-    type: String
+    type: String,
+    required: true
   },
   stable: {
     type: String
