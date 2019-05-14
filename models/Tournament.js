@@ -13,9 +13,10 @@ const TournamentSchema = new Schema({
   wrestlers: [{
     wrestlerId:{ 
       type: Schema.Types.ObjectId, 
-      ref: "wrestlers" 
+      ref: "Wrestler" 
     },
-    score: Number
+    score: Number,
+    _id: false
   }],
   days: [{
     day: Number,
