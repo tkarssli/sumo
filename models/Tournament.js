@@ -11,7 +11,7 @@ const TournamentSchema = new Schema({
     required: true
   },
   wrestlers: [{
-    wrestlerId:{ 
+    wrestler:{ 
       type: Schema.Types.ObjectId, 
       ref: "Wrestler" 
     },
