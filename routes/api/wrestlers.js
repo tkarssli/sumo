@@ -47,7 +47,6 @@ router.get('/:id', (req, res) => {
             })
             wrestler.save()
               .then(wrestler => {
-                console.log(wrestler)
                 res.json({ wrestler })
               })
               .catch(err => console.log(err))
