@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema   = mongoose.Schema
 
 const TournamentSchema = new Schema({
+  running: Boolean,
   month: {
     type: Number,
     required: true
