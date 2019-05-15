@@ -5,7 +5,10 @@ const passport = require('passport');
 
 const users = require("./routes/api/users");
 const wrestlers = require("./routes/api/wrestlers");
+const tournaments = require("./routes/api/tournaments");
 
+const getTourny = require("./schedule/tournament")
+getTourny()
 const app = express();
 //Passport
 app.use(passport.initialize());
@@ -16,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use("/api/users", users);
 app.use("/api/wrestlers", wrestlers);
+app.use("/api/tournaments", tournaments);
 
 const db = require('./config/keys').mongoURI;
 mongoose.connect(db, { useNewUrlParser: true })
