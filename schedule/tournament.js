@@ -45,6 +45,7 @@ const checkIfTournamentExists = (json) => {
       if(!tournament){
         let date = new Date(json.dayHead.replace(/&nbsp;/g, ' ').split(/Day\s.([^\n\r]*)/)[1]);
         let newTournament = new Tournament({
+          running: true,
           month: date.getMonth(),
           webId: parseInt(json.basho_id),
           wrestlers:[],
